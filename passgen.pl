@@ -17,6 +17,11 @@ a5Xb7j
 aluno@host:~$ perl passgen.pl 16
 5hYUc329bvZr2O63
 
+You can also create a password with special chars using -s option:
+
+aluno@host:~$ perl passgen.pl 16 -s
+IDO?l2KS"s<?@9G1
+
 Trick: you can generate a file with a list of random passwords
 
 aluno@host:~$ yes "passgen.pl" | xargs -i perl {} 8 >> fileofpasswords.txt
