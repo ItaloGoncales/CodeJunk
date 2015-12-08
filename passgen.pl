@@ -25,20 +25,27 @@ aluno@host:~$ yes "passgen.pl" | xargs -i perl {} 8 >> fileofpasswords.txt
 
 =cut
 
+my $_SPECIAL;
 
 sub passgen {
     my $len = shift;
 
+    my @special_chars = ( 33 .. 47, 58 .. 64 );
     my @allowed_chars = ( 48 .. 57, 65 .. 90, 97 .. 122 );
-    my @special_chars = ( @allowed_chars, 33 .. 47, 58 .. 64 ); 
+    @allowed_chars = ( @allowed_chars, @special_chars ) if $_SPECIAL; 
+    my $pass = "";
 
-    
+    while ( length $pass < $len ){
+	$pass .= chr( $allowed_chars[int( rand( scalar @allowed_chars ) )] );
+    } 
+
+    print "$pass\n";
 }
 
 # Here the function is called;
 my $_optcheck =  $ARGV[1];
 
-my $_SPECIAL = 1 if ( $_optcheck =~ m/[-s]{1}/ );
+$_SPECIAL = 1 if ( $_optcheck =~ m/[-s]{1}/ );
 
 passgen($ARGV[0]);
 
